@@ -18,7 +18,7 @@ class TeacherTest extends TestCase
         $this->teacher = factory(Teacher::class)->create();
     }
 
-    public function testTeacherIsLinkedToASchool()
+    public function testTeacherMustBeLinkedToASchool()
     {
         $this->assertInstanceOf(School::class, $this->teacher->school);
     }
