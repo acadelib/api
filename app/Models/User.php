@@ -28,4 +28,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Teacher::class);
     }
+
+    /**
+     * A user may have many student profiles.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }

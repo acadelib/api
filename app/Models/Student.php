@@ -18,4 +18,14 @@ class Student extends Model
     {
         return $this->belongsTo(School::class);
     }
+
+    /**
+     * A student may be attached to a user account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

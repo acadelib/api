@@ -23,6 +23,11 @@ class UserTest extends TestCase
         $this->assertInstanceOf(Collection::class, $this->user->teachers);
     }
 
+    public function testUserCanHaveManyStudentProfiles()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->students);
+    }
+
     public function testUserMustBeSoftDeleted()
     {
         $this->user->delete();
