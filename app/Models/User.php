@@ -20,6 +20,20 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the user's profiles.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getProfilesAttribute()
+    {
+        $profiles = collect();
+        $profiles->put('teachers', $this->teachers);
+        $profiles->put('students', $this->students);
+
+        return $profiles;
+    }
+
+    /**
      * A user may have many teacher profiles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
