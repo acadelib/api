@@ -10,6 +10,25 @@ class Teacher extends Model
     use SoftDeletes;
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'identifier',
+    ];
+
+    /**
+     * Get the profile's encrypted identifier.
+     *
+     * @return string
+     */
+    public function getIdentifierAttribute()
+    {
+        return encrypt(get_class($this).':'.$this->id);
+    }
+
+    /**
      * A teacher is linked to a school.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

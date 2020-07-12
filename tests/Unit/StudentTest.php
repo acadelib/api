@@ -29,6 +29,11 @@ class StudentTest extends TestCase
         $this->assertInstanceOf(User::class, $this->student->user);
     }
 
+    public function testStudentMustHaveAUniqueIdentifier()
+    {
+        $this->assertEquals(decrypt($this->student->identifier), get_class($this->student).':'.$this->student->id);
+    }
+
     public function testStudentMustBeSoftDeleted()
     {
         $this->student->delete();

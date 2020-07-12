@@ -34,6 +34,18 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's profile.
+     *
+     * @return mixed
+     */
+    public function getProfileAttribute()
+    {
+        return $this->profiles->flatten()->first(function ($profile) {
+            return decrypt($profile->identifier) == decrypt($this->profile_identifier);
+        });
+    }
+
+    /**
      * A user may have many teacher profiles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
