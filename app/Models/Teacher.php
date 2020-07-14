@@ -2,31 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasIdentifier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
-    use SoftDeletes;
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'identifier',
-    ];
-
-    /**
-     * Get the profile's encrypted identifier.
-     *
-     * @return string
-     */
-    public function getIdentifierAttribute()
-    {
-        return encrypt(get_class($this).':'.$this->id);
-    }
+    use SoftDeletes, HasIdentifier;
 
     /**
      * A teacher is linked to a school.
