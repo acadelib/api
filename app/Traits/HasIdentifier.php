@@ -11,7 +11,7 @@ trait HasIdentifier
      */
     public function initializeHasIdentifier()
     {
-        $this->appends('identifier');
+        $this->append('identifier');
     }
 
     /**
