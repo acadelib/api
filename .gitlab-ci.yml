@@ -2,12 +2,18 @@ stages:
   - build
   - test
 
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+
 composer:
   stage: build
   image: composer:latest
   script:
     - composer install --ignore-platform-reqs
   artifacts:
+    paths:
+      - vendor/
+  cache:
     paths:
       - vendor/
 
