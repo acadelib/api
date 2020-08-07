@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  # PHP Service
+  app:
+    build: ./.docker/php-fpm
+    container_name: acadelib-app
+    restart: unless-stopped
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+
+  # NGINX Service
+  webserver:
+    image: nginx:alpine
+    container_name: acadelib-webserver
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - app-network
+
+  # MariaDB Service
+  db:
+    image: mariadb:latest
+    container_name: acadelib-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge
