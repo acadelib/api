@@ -1,7 +1,7 @@
-FROM php:7.4-fpm-alpine
+FROM php:7.4-fpm
 
 # Install PHP extensions
-RUN docker-php-ext-install bcmath pdo_mysql
+RUN pecl install xdebug && docker-php-ext-enable xdebug && docker-php-ext-install bcmath pdo_mysql
 
 # Install Composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer

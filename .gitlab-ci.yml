@@ -29,9 +29,10 @@ phpunit:
   dependencies:
     - composer
   before_script:
-    - apt-get update -yqq
-    - docker-php-ext-install pdo_mysql
+    - pecl install xdebug
+    - docker-php-ext-enable xdebug
+    - docker-php-ext-install bcmath pdo_mysql
   script:
     - cp .env.gitlabci .env
     - php artisan key:generate
-    - vendor/bin/phpunit
+    - vendor/bin/phpunit --coverage-text --colors=never
