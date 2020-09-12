@@ -1,22 +1,46 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\School;
 use App\Models\Teacher;
 use App\Models\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Teacher::class, function (Faker $faker) {
-    return [
-        'school_id' => factory(School::class),
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-    ];
-});
+class TeacherFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Teacher::class;
 
-$factory->state(Teacher::class, 'account', function () {
-    return [
-        'user_id' => factory(User::class),
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'school_id' => School::factory(),
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+        ];
+    }
+
+    /**
+     * Indicate that the teacher has an account to login on the app.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function withAccount()
+    {
+        return $this->state(function () {
+            return [
+                'user_id' => User::factory(),
+            ];
+        });
+    }
+}

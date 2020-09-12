@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\Classroom;
 use App\Models\SchoolYear;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Classroom::class, function (Faker $faker) {
-    return [
-        'school_year_id' => factory(SchoolYear::class),
-        'name' => ucfirst($faker->word),
-    ];
-});
+class ClassroomFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Classroom::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'school_year_id' => SchoolYear::factory(),
+            'name' => ucfirst($this->faker->word),
+        ];
+    }
+}

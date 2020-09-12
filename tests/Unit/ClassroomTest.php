@@ -16,7 +16,7 @@ class ClassroomTest extends TestCase
     {
         parent::setUp();
 
-        $this->classroom = factory(Classroom::class)->create();
+        $this->classroom = Classroom::factory()->create();
     }
 
     public function testClassroomBelongsToASchoolYear()

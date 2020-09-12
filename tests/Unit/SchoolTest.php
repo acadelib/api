@@ -14,7 +14,7 @@ class SchoolTest extends TestCase
     {
         parent::setUp();
 
-        $this->school = factory(School::class)->create();
+        $this->school = School::factory()->create();
     }
 
     public function testSchoolMustBeSoftDeleted()

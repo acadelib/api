@@ -1,13 +1,29 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\School;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(School::class, function (Faker $faker) {
-    return [
-        'name' => $faker->company,
-        'national_identifier' => $faker->unique()->bothify('#######?'),
-    ];
-});
+class SchoolFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = School::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->company,
+            'national_identifier' => $this->faker->unique()->bothify('#######?'),
+        ];
+    }
+}

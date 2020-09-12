@@ -1,20 +1,36 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Models\School;
 use App\Models\SchoolYear;
 use Carbon\Carbon;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(SchoolYear::class, function (Faker $faker) {
-    $startOfSchoolYear = Carbon::createFromDate($faker->year(), 9, $faker->dayOfMonth());
-    $endOfSchoolYear = $startOfSchoolYear->copy()->addMonths(10);
+class SchoolYearFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = SchoolYear::class;
 
-    return [
-        'school_id' => factory(School::class),
-        'name' => "Année scolaire {$startOfSchoolYear->year} - {$endOfSchoolYear->year}",
-        'started_at' => $startOfSchoolYear,
-        'ended_at' => $endOfSchoolYear,
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        $startOfSchoolYear = Carbon::createFromDate($this->faker->year(), 9, $this->faker->dayOfMonth());
+        $endOfSchoolYear = $startOfSchoolYear->copy()->addMonths(10);
+
+        return [
+            'school_id' => School::factory(),
+            'name' => "Année scolaire {$startOfSchoolYear->year} - {$endOfSchoolYear->year}",
+            'started_at' => $startOfSchoolYear,
+            'ended_at' => $endOfSchoolYear,
+        ];
+    }
+}

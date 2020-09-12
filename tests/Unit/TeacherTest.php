@@ -16,7 +16,7 @@ class TeacherTest extends TestCase
     {
         parent::setUp();
 
-        $this->teacher = factory(Teacher::class)->state('account')->create();
+        $this->teacher = Teacher::factory()->withAccount()->create();
     }
 
     public function testTeacherMustBeLinkedToASchool()

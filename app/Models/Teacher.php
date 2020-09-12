@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\HasIdentifier;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
-    use SoftDeletes, HasIdentifier;
+    use SoftDeletes, HasFactory, HasIdentifier;
 
     /**
      * A teacher is linked to a school.

@@ -16,7 +16,7 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = factory(User::class)->create();
+        $this->user = User::factory()->create();
     }
 
     public function testUserCanHaveManyTeacherProfiles()
@@ -31,7 +31,7 @@ class UserTest extends TestCase
 
     public function testUserCanRetrieveTheCurrentProfile()
     {
-        $this->user->teachers()->save(factory(Teacher::class)->make());
+        $this->user->teachers()->save(Teacher::factory()->make());
         $this->user->profile_identifier = $this->user->teachers->first()->identifier;
         $this->user->save();
 
