@@ -21,48 +21,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user's profiles.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function getProfilesAttribute()
-    {
-        $profiles = collect();
-        $profiles->put('teachers', $this->teachers);
-        $profiles->put('students', $this->students);
-
-        return $profiles;
-    }
-
-    /**
-     * Get the user's profile.
-     *
-     * @return mixed
-     */
-    public function getProfileAttribute()
-    {
-        return $this->profiles->flatten()->first(function ($profile) {
-            return decrypt($profile->identifier) == decrypt($this->profile_identifier);
-        });
-    }
-
-    /**
-     * A user may have many teacher profiles.
+     * A user may have many profiles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function teachers()
+    public function profiles()
     {
-        return $this->hasMany(Teacher::class);
+        return $this->hasMany(Profile::class);
     }
 
     /**
-     * A user may have many student profiles.
+     * Get the user's current profile.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function students()
+    public function profile()
     {
-        return $this->hasMany(Student::class);
+        return $this->belongsTo(Profile::class);
     }
 }

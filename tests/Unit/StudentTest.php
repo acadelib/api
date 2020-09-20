@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
+use App\Models\Profile;
 use App\Models\School;
 use App\Models\Student;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +16,7 @@ class StudentTest extends TestCase
     {
         parent::setUp();
 
-        $this->student = Student::factory()->withAccount()->create();
+        $this->student = Student::factory()->hasProfile()->create();
     }
 
     public function testStudentMustBeLinkedToASchool()
@@ -26,12 +26,7 @@ class StudentTest extends TestCase
 
     public function testStudentCanBeAttachedToAUserAccount()
     {
-        $this->assertInstanceOf(User::class, $this->student->user);
-    }
-
-    public function testStudentMustHaveAUniqueIdentifier()
-    {
-        $this->assertEquals(decrypt($this->student->identifier), get_class($this->student).':'.$this->student->id);
+        $this->assertInstanceOf(Profile::class, $this->student->profile);
     }
 
     public function testStudentMustBeSoftDeleted()

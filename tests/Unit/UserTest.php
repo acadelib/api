@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Profile;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,26 +17,20 @@ class UserTest extends TestCase
     {
         parent::setUp();
 
-        $this->user = User::factory()->create();
+        $this->user = User::factory()->for(Profile::factory()->state([
+            'profileable_id' => Teacher::factory(),
+            'profileable_type' => Teacher::class,
+        ]))->create();
     }
 
-    public function testUserCanHaveManyTeacherProfiles()
+    public function testUserCanHaveManyProfiles()
     {
-        $this->assertInstanceOf(Collection::class, $this->user->teachers);
-    }
-
-    public function testUserCanHaveManyStudentProfiles()
-    {
-        $this->assertInstanceOf(Collection::class, $this->user->students);
+        $this->assertInstanceOf(Collection::class, $this->user->profiles);
     }
 
     public function testUserCanRetrieveTheCurrentProfile()
     {
-        $this->user->teachers()->save(Teacher::factory()->make());
-        $this->user->profile_identifier = $this->user->teachers->first()->identifier;
-        $this->user->save();
-
-        $this->assertTrue($this->user->teachers->first()->is($this->user->profile));
+        $this->assertInstanceOf(Profile::class, $this->user->profile);
     }
 
     public function testUserMustBeSoftDeleted()

@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\HasIdentifier;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Teacher extends Model
 {
-    use SoftDeletes, HasFactory, HasIdentifier;
+    use SoftDeletes, HasFactory;
 
     /**
      * A teacher is linked to a school.
@@ -24,10 +23,10 @@ class Teacher extends Model
     /**
      * A teacher may be attached to a user account.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function user()
+    public function profile()
     {
-        return $this->belongsTo(User::class);
+        return $this->morphOne(Profile::class, 'profileable');
     }
 }
