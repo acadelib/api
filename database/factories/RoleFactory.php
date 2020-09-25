@@ -2,19 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Administrator;
-use App\Models\Profile;
-use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class ProfileFactory extends Factory
+class RoleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Profile::class;
+    protected $model = Role::class;
 
     /**
      * Define the model's default state.
@@ -24,9 +23,8 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(),
-            'profileable_id' => Administrator::factory(),
-            'profileable_type' => Administrator::class,
+            'name' => $this->faker->unique()->word,
+            'display_name' => Str::ucfirst($this->faker->word),
         ];
     }
 }

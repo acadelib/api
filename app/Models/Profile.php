@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     /**
      * Indicates if the model should be timestamped.
