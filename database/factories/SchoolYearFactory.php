@@ -28,7 +28,6 @@ class SchoolYearFactory extends Factory
 
         return [
             'school_id' => School::factory(),
-            'name' => "Année scolaire {$startOfSchoolYear->year} - {$endOfSchoolYear->year}",
             'started_at' => $startOfSchoolYear,
             'ended_at' => $endOfSchoolYear,
         ];

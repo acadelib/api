@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\SchoolYearController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('profile', function (Request $request) {
         return $request->user()->profile;
     });
+
+    Route::apiResource('school-years', SchoolYearController::class);
 });
