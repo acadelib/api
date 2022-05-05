@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 # Install PHP extensions
 RUN pecl install xdebug && docker-php-ext-enable xdebug && docker-php-ext-install bcmath pdo_mysql
