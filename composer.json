@@ -1,4 +1,21 @@
 {
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://acadelib.com",
+    "readme": "https://github.com/acadelib/api#readme",
+    "support": {
+        "issues": "https://github.com/acadelib/api/issues",
+        "source": "https://github.com/acadelib/api"
+    },
+    "authors": [
+        {
+            "name": "Samuel Maurice",
+            "email": "samuel@acadelib.com"
+        },
+        {
+            "name": "Antoni Capart",
+            "email": "antoni@acadelib.com"
+        }
+    ],
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
