@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * Acadelib - Outil de gestion d'établissements scolaires libre et gratuit
  * Copyright (C) 2020 - 2022 Samuel Maurice
  *
