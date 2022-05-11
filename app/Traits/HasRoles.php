@@ -1,8 +1,28 @@
 <?php
+/**
+ * Acadelib - Outil de gestion d'établissements scolaires libre et gratuit
+ * Copyright (C) 2020 - 2022 Samuel Maurice
+ *
+ * This file is part of Acadelib.
+ *
+ * Acadelib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Acadelib is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Acadelib. If not, see <https://www.gnu.org/licenses/>.
+ */
 
 namespace App\Traits;
 
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait HasRoles
 {
@@ -11,20 +31,20 @@ trait HasRoles
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles()
+    public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
     /**
-     * Determine if the profile has the given role.
+     * Determine if a profile has the given role.
      *
      * @param  string|\App\Models\Role  $role
      * @return bool
      *
      * @throws \App\Exceptions\RoleNotFoundException
      */
-    public function hasRole($role)
+    public function hasRole(string|Role $role): bool
     {
         if (is_string($role)) {
             $role = Role::findByName($role);
@@ -34,36 +54,40 @@ trait HasRoles
     }
 
     /**
-     * Assign the given role to the profile.
+     * Assign the given role to a profile.
      *
      * @param  string|\App\Models\Role  $role
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return $this
      *
      * @throws \App\Exceptions\RoleNotFoundException
      */
-    public function assignRole($role)
+    public function assignRole(string|Role $role): static
     {
         if (is_string($role)) {
             $role = Role::findByName($role);
         }
 
-        return $this->roles()->save($role);
+        $this->roles()->attach($role);
+
+        return $this;
     }
 
     /**
-     * Remove the given role from the profile.
+     * Remove the given role from a profile.
      *
      * @param  string|\App\Models\Role  $role
-     * @return int
+     * @return $this
      *
      * @throws \App\Exceptions\RoleNotFoundException
      */
-    public function removeRole($role)
+    public function removeRole(string|Role $role): static
     {
         if (is_string($role)) {
             $role = Role::findByName($role);
         }
 
-        return $this->roles()->detach($role);
+        $this->roles()->detach($role);
+
+        return $this;
     }
 }
