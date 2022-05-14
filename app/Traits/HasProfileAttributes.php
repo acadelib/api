@@ -1,7 +1,7 @@
 <?php
 /*
  * Acadelib - Outil de gestion d'établissements scolaires libre et gratuit
- * Copyright (C) 2020 - 2022 Samuel Maurice
+ * Copyright (C) 2022 Samuel Maurice
  *
  * This file is part of Acadelib.
  *
@@ -19,14 +19,32 @@
  * along with Acadelib. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Models;
+namespace App\Traits;
 
-use App\Traits\HasProfileAttributes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Profile;
+use App\Models\School;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Student extends Model
+trait HasProfileAttributes
 {
-    use SoftDeletes, HasProfileAttributes, HasFactory;
+    /**
+     * A profile is linked to a school.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(School::class);
+    }
+
+    /**
+     * A profile may be attached to a user account.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     */
+    public function profile(): MorphOne
+    {
+        return $this->morphOne(Profile::class, 'profileable');
+    }
 }

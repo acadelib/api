@@ -19,14 +19,24 @@
  * along with Acadelib. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Models;
+namespace App\Http\Resources;
 
-use App\Traits\HasProfileAttributes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class Student extends Model
+class RoleResource extends JsonResource
 {
-    use SoftDeletes, HasProfileAttributes, HasFactory;
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array<string, mixed>
+     */
+    public function toArray($request): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'display_name' => $this->display_name,
+        ];
+    }
 }
